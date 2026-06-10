@@ -6,15 +6,13 @@ Community skills for [Hermes Agent](https://hermes-agent.nousresearch.com/) by N
 
 | Skill | Description | Install |
 |-------|-------------|---------|
-| `open-source-contribution` | Complete workflow for contributing to external open-source repos. Discovery, scoping, writing, tool discipline, PR process, post-PR follow-up. | `hermes skills install github:SaintChris/hermes-skills/skills/devops/open-source-contribution` |
-| `platform-picker` | Publish content across Dev.to, GitHub, LinkedIn, and HermesHub from one place. Store API keys once, pick platform per publish. | `hermes skills install github:SaintChris/hermes-skills/skills/devops/platform-picker` |
+| `open-source-contribution` | Complete workflow for contributing to external repos + publishing across platforms (Dev.to, GitHub, LinkedIn). Discovery, scoping, writing, tool discipline, PR process, post-PR, and multi-platform publishing. | `hermes skills install github:SaintChris/hermes-skills/skills/devops/open-source-contribution` |
 
 ## Installation
 
 ### Via Hermes CLI
 ```bash
 hermes skills install github:SaintChris/hermes-skills/skills/devops/open-source-contribution
-hermes skills install github:SaintChris/hermes-skills/skills/devops/platform-picker
 ```
 
 ### Manual
@@ -22,43 +20,48 @@ hermes skills install github:SaintChris/hermes-skills/skills/devops/platform-pic
 # Clone the repo
 git clone https://github.com/SaintChris/hermes-skills.git
 
-# Copy skills to your Hermes skills directory
+# Copy skill to your Hermes skills directory
 cp -r hermes-skills/skills/devops/open-source-contribution ~/.hermes/skills/devops/
-cp -r hermes-skills/skills/devops/platform-picker ~/.hermes/skills/devops/
 
 # Copy the platform picker script
 cp hermes-skills/scripts/platform_picker.py ~/.hermes/scripts/
 chmod +x ~/.hermes/scripts/platform_picker.py
 ```
 
-## Platform Picker Setup
+## Platform Picker
 
+The open-source-contribution skill includes a platform picker for publishing content across multiple platforms.
+
+### Setup (one-time per platform)
 ```bash
-# Configure Dev.to
+# Dev.to
 python3 ~/.hermes/scripts/platform_picker.py setup devto --api-key YOUR_KEY
 
-# Configure GitHub
+# GitHub
 python3 ~/.hermes/scripts/platform_picker.py setup github --token YOUR_PAT
 
 # Check status
 python3 ~/.hermes/scripts/platform_picker.py status
 ```
 
-## Publishing
-
+### Publishing
 ```bash
 # Publish an article to Dev.to
 python3 ~/.hermes/scripts/platform_picker.py publish --file article.md --platform devto
 
 # Publish to multiple platforms
 python3 ~/.hermes/scripts/platform_picker.py publish --file article.md --platform devto --platform linkedin
-
-# Publish a skill to HermesHub
-python3 ~/.hermes/scripts/platform_picker.py publish-skill --skill-path ~/.hermes/skills/devops/open-source-contribution/
 ```
 
-## Credential Storage
+### Supported Platforms
+| Platform | Auth | What it publishes |
+|----------|------|-------------------|
+| Dev.to | API key | Articles with full markdown |
+| GitHub | PAT | Gists, repo files |
+| LinkedIn | OAuth token | Text posts (3000 char limit) |
+| HermesHub | GitHub OAuth | Skills (via web) |
 
+### Credential Storage
 API keys and tokens are stored in `~/.hermes/config.yaml` under the `platforms:` section. Never hardcoded in scripts or skills.
 
 ```yaml
@@ -69,8 +72,6 @@ platforms:
     token: "your-pat"
   linkedin:
     token: "your-token"
-  hermeshub:
-    enabled: true
 ```
 
 ## Contributing
