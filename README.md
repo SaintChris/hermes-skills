@@ -87,4 +87,4 @@ These skills are open source (MIT). Contributions welcome:
 
 **Alex Bogle** — [@SaintChris](https://github.com/SaintChris) · [saintlex.sbs](https://saintlex.sbs) · [Dev.to](https://dev.to/saintchris_21)
 
-Built on a $0 cloud budget from Jamaica.
+Built and documented from Jamaica.
